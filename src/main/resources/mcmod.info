@@ -1,0 +1,15 @@
+[
+{
+  "modid": "mikesmodslib",
+  "name": "Mike's Mods Lib",
+  "description": "A base dependency for all of Mike's Mods.",
+  "version": "${version}",
+  "mcversion": "${mcversion}",
+  "logoFile": "assets/mikesmodslib/logo.png",
+  "url": "https://github.com/pkmnfrk/mikesmodslib",
+  "updateUrl": "",
+  "authorList": [ "pkmnfrk" ],
+  "parent": "",
+  "screenshots": []
+}
+]
