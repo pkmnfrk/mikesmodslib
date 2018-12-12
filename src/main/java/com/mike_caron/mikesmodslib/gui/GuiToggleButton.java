@@ -1,7 +1,7 @@
-package com.mike_caron.mikesmodslib.gui.control;
+package com.mike_caron.mikesmodslib.gui;
 
-import com.mike_caron.mikesmodslib.gui.GuiUtil;
 import net.minecraft.client.renderer.GlStateManager;
+import net.minecraft.init.SoundEvents;
 
 import java.util.EventListener;
 
@@ -65,6 +65,8 @@ public class GuiToggleButton
         if(button != 0) return;
 
         isMouseDown = true;
+
+        GuiUtil.playSound(SoundEvents.UI_BUTTON_CLICK);
     }
 
     private State calcState()

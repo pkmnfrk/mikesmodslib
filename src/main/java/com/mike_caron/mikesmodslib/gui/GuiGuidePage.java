@@ -1,8 +1,7 @@
-package com.mike_caron.mikesmodslib.gui.control;
+package com.mike_caron.mikesmodslib.gui;
 
 import com.google.gson.*;
 import com.mike_caron.mikesmodslib.Mod;
-import com.mike_caron.mikesmodslib.gui.GuiUtil;
 import com.mike_caron.mikesmodslib.util.DataUtils;
 import com.mike_caron.mikesmodslib.util.ItemUtils;
 import net.minecraft.client.Minecraft;

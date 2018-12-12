@@ -101,7 +101,7 @@ public abstract class CommandBase
         return 0;
     }
 
-    interface TriAction<X,Y,Z>
+    public interface TriAction<X,Y,Z>
     {
         void execute(@Nullable X x, @Nonnull Y y, @Nonnull Z z)
             throws CommandException;

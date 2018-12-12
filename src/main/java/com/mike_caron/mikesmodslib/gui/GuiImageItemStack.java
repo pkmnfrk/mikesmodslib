@@ -1,6 +1,5 @@
-package com.mike_caron.mikesmodslib.gui.control;
+package com.mike_caron.mikesmodslib.gui;
 
-import com.mike_caron.mikesmodslib.gui.GuiUtil;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.RenderItem;
 import net.minecraft.client.util.ITooltipFlag;

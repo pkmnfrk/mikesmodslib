@@ -71,7 +71,7 @@ public class CtoSMessage implements IMessage
     {
         int o = buf.readInt();
         kind = KindEnum.values()[o];
-        //dim = buf.readInt();
+        dim = buf.readInt();
         pos = new BlockPos(buf.readInt(), buf.readInt(), buf.readInt());
         switch(kind)
         {

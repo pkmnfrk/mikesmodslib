@@ -1,7 +1,6 @@
-package com.mike_caron.mikesmodslib.gui.control;
+package com.mike_caron.mikesmodslib.gui;
 
 import com.mike_caron.mikesmodslib.block.ContainerBase;
-import com.mike_caron.mikesmodslib.gui.GuiUtil;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.gui.Gui;
 import net.minecraft.client.gui.inventory.GuiContainer;
@@ -323,15 +322,6 @@ public abstract class GuiContainerBase
     public void clearControls()
     {
         this.controls.clear();
-    }
-
-    protected void drawInsertCardBackground()
-    {
-        GlStateManager.color(1, 1, 1, 1);
-        mc.getTextureManager().bindTexture(GuiUtil.MISC_RESOURCES);
-        //drawTexturedModalRect(guiLeft, guiTop, 0, 0, xSize, ySize);
-        GuiUtil.draw3x3Stretched(guiLeft, guiTop, xSize, ySize, 48, 16);
-        GuiUtil.drawTexturePart(guiLeft + xSize / 2 - 81, guiTop + ySize - 83, 162, 76, 0, 180, 256, 256);
     }
 
     protected String getTitleKey()

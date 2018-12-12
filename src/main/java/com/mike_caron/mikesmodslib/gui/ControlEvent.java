@@ -1,4 +1,4 @@
-package com.mike_caron.mikesmodslib.gui.control;
+package com.mike_caron.mikesmodslib.gui;
 
 public class ControlEvent
 {

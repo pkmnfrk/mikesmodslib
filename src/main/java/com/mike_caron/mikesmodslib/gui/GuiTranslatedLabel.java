@@ -1,6 +1,5 @@
-package com.mike_caron.mikesmodslib.gui.control;
+package com.mike_caron.mikesmodslib.gui;
 
-import com.mike_caron.mikesmodslib.gui.GuiUtil;
 import net.minecraft.util.text.TextComponentTranslation;
 
 import java.awt.*;

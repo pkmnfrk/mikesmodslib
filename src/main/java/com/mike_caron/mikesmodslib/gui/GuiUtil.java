@@ -1,11 +1,8 @@
 package com.mike_caron.mikesmodslib.gui;
 
 import com.mike_caron.mikesmodslib.Mod;
-import com.mike_caron.mikesmodslib.gui.control.GuiButton;
-import com.mike_caron.mikesmodslib.gui.control.GuiControl;
-import com.mike_caron.mikesmodslib.gui.control.GuiLabel;
-import com.mike_caron.mikesmodslib.gui.control.GuiMultilineLabel;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.audio.PositionedSoundRecord;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.gui.GuiButtonImage;
 import net.minecraft.client.gui.ScaledResolution;
@@ -14,6 +11,7 @@ import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.SoundEvent;
 import net.minecraft.util.text.TextComponentTranslation;
 import net.minecraftforge.fluids.FluidStack;
 import org.lwjgl.opengl.GL11;
@@ -26,10 +24,10 @@ public class GuiUtil
     private GuiUtil() {}
 
     public static final ResourceLocation MC_BLOCK_SHEET = new ResourceLocation("textures/atlas/blocks.png");
-    public static final ResourceLocation EMPTY_GUI = new ResourceLocation(Mod.modId, "textures/gui/empty.png");
-    public static final ResourceLocation MISC_RESOURCES = new ResourceLocation(Mod.modId, "textures/gui/misc.png");
 
     public static final Color FONT_COLOUR = new Color(0x404040);
+
+    static final ResourceLocation MISC_RESOURCES = new ResourceLocation(Mod.modId, "textures/gui/misc.png");
 
     public static void bindTexture(ResourceLocation resource)
     {
@@ -223,9 +221,9 @@ public class GuiUtil
         return new GuiMultilineLabel(x, y, width, height, message);
     }
 
-    public static void drawDebugFlatRectangle(int x, int y, int width, int height)
+    public static void drawDebugFlatRectangle(ResourceLocation misc, int x, int y, int width, int height)
     {
-        bindTexture(MISC_RESOURCES);
+        bindTexture(misc);
         float minU = 14f / 256f;
         float maxU = 15f / 256f;
         float minV = 3 / 256f;
@@ -370,5 +368,17 @@ public class GuiUtil
         RenderHelper.disableStandardItemLighting();
 
         itemRender.zLevel = 0.0F;
+    }
+
+    public static void playSound(SoundEvent soundEvent) {
+        Minecraft.getMinecraft().getSoundHandler().playSound(PositionedSoundRecord.getMasterRecord(soundEvent, 1.0F));
+    }
+
+    public static void playSound(Minecraft mc, SoundEvent soundEvent) {
+        mc.getSoundHandler().playSound(PositionedSoundRecord.getMasterRecord(soundEvent, 1.0F));
+    }
+
+    public static void playSound(Minecraft mc, SoundEvent soundEvent, float pitch) {
+        mc.getSoundHandler().playSound(PositionedSoundRecord.getMasterRecord(soundEvent, pitch));
     }
 }

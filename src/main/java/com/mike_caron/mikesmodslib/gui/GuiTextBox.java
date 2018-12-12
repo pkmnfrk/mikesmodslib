@@ -1,6 +1,4 @@
-package com.mike_caron.mikesmodslib.gui.control;
-
-import com.mike_caron.mikesmodslib.gui.GuiUtil;
+package com.mike_caron.mikesmodslib.gui;
 
 import javax.annotation.Nonnull;
 import java.awt.*;

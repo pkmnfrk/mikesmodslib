@@ -1,9 +1,6 @@
 package com.mike_caron.mikesmodslib.gui;
 
 import com.mike_caron.mikesmodslib.Mod;
-import com.mike_caron.mikesmodslib.gui.control.GuiBase;
-import com.mike_caron.mikesmodslib.gui.control.GuiButton;
-import com.mike_caron.mikesmodslib.gui.control.GuiGuidePage;
 import net.minecraft.util.ResourceLocation;
 
 import java.net.URI;

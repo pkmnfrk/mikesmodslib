@@ -1,10 +1,10 @@
-package com.mike_caron.mikesmodslib.gui.control;
+package com.mike_caron.mikesmodslib.gui;
 
-import com.mike_caron.mikesmodslib.gui.GuiUtil;
 import net.minecraft.client.renderer.GlStateManager;
+import net.minecraft.init.SoundEvents;
 
 import javax.annotation.Nonnull;
-import java.awt.*;
+import java.awt.Color;
 import java.util.EventListener;
 
 public class GuiButton
@@ -71,6 +71,8 @@ public class GuiButton
         if(button != 0) return;
 
         this.state = State.PRESSED;
+
+        GuiUtil.playSound(SoundEvents.UI_BUTTON_CLICK);
     }
 
     @Override
@@ -102,7 +104,7 @@ public class GuiButton
         }
 
         GuiUtil.bindTexture(GuiUtil.MISC_RESOURCES);
-        GlStateManager.color(1, 1, 1, 1);
+        GuiUtil.setGLColor(Color.WHITE);
         GuiUtil.draw3x3(0, 0, this.width, this.height, sx, 0);
 
         int imageX = this.width / 2;

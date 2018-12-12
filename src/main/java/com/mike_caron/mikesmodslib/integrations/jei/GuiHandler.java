@@ -1,8 +1,8 @@
 package com.mike_caron.mikesmodslib.integrations.jei;
 
-import com.mike_caron.mikesmodslib.gui.control.GuiContainerBase;
-import com.mike_caron.mikesmodslib.gui.control.GuiControl;
-import com.mike_caron.mikesmodslib.gui.control.GuiFluid;
+import com.mike_caron.mikesmodslib.gui.GuiContainerBase;
+import com.mike_caron.mikesmodslib.gui.GuiControl;
+import com.mike_caron.mikesmodslib.gui.GuiFluid;
 import mezz.jei.api.gui.IAdvancedGuiHandler;
 
 import javax.annotation.Nonnull;

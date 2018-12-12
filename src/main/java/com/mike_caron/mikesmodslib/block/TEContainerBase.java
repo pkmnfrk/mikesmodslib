@@ -28,4 +28,9 @@ public abstract class TEContainerBase extends ContainerBase
     {
         return te.getPos();
     }
+
+    public int getDimension()
+    {
+        return te.getWorld().provider.getDimension();
+    }
 }

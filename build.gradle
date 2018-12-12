@@ -88,6 +88,15 @@ processResources {
     }
 }
 
+task buildDeobf(type: Jar, dependsOn: 'jar') {
+    from "build/classes/main"
+    from "build/resources/main"
+    classifier "dev"
+}
+artifacts {
+    archives buildDeobf
+}
+
 def getVersionString()
 {
     def ret = mod_version
