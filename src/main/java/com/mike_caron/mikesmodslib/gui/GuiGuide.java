@@ -12,21 +12,34 @@ public class GuiGuide
     implements GuiButton.ClickedListener,
                GuiGuidePage.NavigationListener
 {
-    private GuiButton backButton = GuiUtil.translatedButton(1, 7, 147, 55, 14, "gui.mikesmodslib:guide.back");
-    private GuiButton closeButton = GuiUtil.translatedButton(2, 194, 147, 55, 14, "gui.mikesmodslib:guide.close");
-    private GuiButton indexButton = GuiUtil.translatedButton(3, 104, 147, 55, 14, "gui.mikesmodslib:guide.index");
+    private final String titleKey;
 
-    private GuiGuidePage guidePage = new GuiGuidePage(7, 18, 242, 126);
+    private GuiButton backButton = GuiUtil.translatedButton(1, 7, 147, 55, 14, "mikesmodslib.gui.guide.back");
+    private GuiButton closeButton = GuiUtil.translatedButton(2, 194, 147, 55, 14, "mikesmodslib.gui.guide.close");
+    private GuiButton indexButton = GuiUtil.translatedButton(3, 104, 147, 55, 14, "mikesmodslib.gui.guide.index");
+
+    private final GuiGuidePage guidePage;
 
     private final Stack<String> pageNav = new Stack<>();
     private final Stack<Integer> scrolls = new Stack<>();
 
-    private String currentPage = "/index";
-    public GuiGuide(int width, int height, ResourceLocation background)
+    private String currentPage;
+
+    public GuiGuide(int width, int height,
+                    String titleKey,
+                    ResourceLocation background,
+                    ResourceLocation initialPage
+    )
     {
         super(width, height, background);
 
         this.background = background;
+        this.titleKey = titleKey;
+
+        guidePage = new GuiGuidePage(7, 18, 242, 126, initialPage.getNamespace());
+
+        currentPage = initialPage.getPath();
+
 
         initControls();
 
@@ -36,7 +49,7 @@ public class GuiGuide
     @Override
     protected String getTitleKey()
     {
-        return "gui.mikesmodslib:guide.title";
+        return titleKey;
     }
 
     @Override

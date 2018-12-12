@@ -1,7 +1,6 @@
 package com.mike_caron.mikesmodslib.gui;
 
 import com.google.gson.*;
-import com.mike_caron.mikesmodslib.Mod;
 import com.mike_caron.mikesmodslib.util.DataUtils;
 import com.mike_caron.mikesmodslib.util.ItemUtils;
 import net.minecraft.client.Minecraft;
@@ -38,12 +37,15 @@ public class GuiGuidePage
 
     String currentUri = null;
 
+    final String modId;
+
     int yPos = 0;
 
-    public GuiGuidePage(int x, int y, int width, int height)
+    public GuiGuidePage(int x, int y, int width, int height, String modId)
     {
         super(x, y, width, height);
 
+        this.modId = modId;
         //scrollX = -20;
     }
 
@@ -57,15 +59,15 @@ public class GuiGuidePage
         yPos = 4;
         scrollY = 0;
 
-        ResourceLocation rl = new ResourceLocation(Mod.modId, baseFile(uri));
+        ResourceLocation rl = new ResourceLocation(modId, baseFile(uri));
 
         try
         {
-            JsonObject templates = loadResourceAsJson(new ResourceLocation(Mod.modId, baseFile("/_templates")));
+            JsonObject templates = loadResourceAsJson(new ResourceLocation(this.modId, baseFile("/_templates")));
             JsonObject body = loadResourceAsJson(rl);
             if(body == null)
             {
-                String message = new TextComponentTranslation("gui.mikesmodslib:guide.pagenotfound", currentJson).getFormattedText();
+                String message = new TextComponentTranslation("mikesmodslib.gui.guide.pagenotfound", currentJson).getFormattedText();
 
                 GuiMultilineLabel label = new GuiMultilineLabel(2, 0, this.width - 4 - 8, message);
                 this.addControl(label);
@@ -93,7 +95,7 @@ public class GuiGuidePage
 
                 if (body.has("seealso"))
                 {
-                    GuiLabel seealso = GuiUtil.staticLabelFromTranslationKey(2, yPos, "gui.mikesmodslib:guide.seealso");
+                    GuiLabel seealso = GuiUtil.staticLabelFromTranslationKey(2, yPos, "mikesmodslib.gui.guide.seealso");
                     yPos += 10;
 
                     addButtonsForList(body, "seealso", translation);
@@ -613,7 +615,7 @@ public class GuiGuidePage
 
         if(otherUri != null)
         {
-            JsonObject otherPage = loadResourceAsJson(new ResourceLocation(Mod.modId, baseFile(otherUri)));
+            JsonObject otherPage = loadResourceAsJson(new ResourceLocation(this.modId, baseFile(otherUri)));
             JsonObject otherTranslation = loadLocalizedResourceAsJson(otherUri);
 
             if(otherPage != null && otherPage.has("enabled"))
@@ -726,7 +728,7 @@ public class GuiGuidePage
 
         try
         {
-            ResourceLocation loc = new ResourceLocation(Mod.modId, localeFile(uri, locale));
+            ResourceLocation loc = new ResourceLocation(this.modId, localeFile(uri, locale));
             currentJson = loc.getPath();
 
             IResource res = Minecraft.getMinecraft().getResourceManager().getResource(loc);
@@ -739,7 +741,7 @@ public class GuiGuidePage
             {
                 try
                 {
-                    ResourceLocation loc = new ResourceLocation(Mod.modId, localeFile(uri, "en_us"));
+                    ResourceLocation loc = new ResourceLocation(this.modId, localeFile(uri, "en_us"));
                     currentJson = loc.getPath();
 
                     IResource res = Minecraft.getMinecraft().getResourceManager().getResource(loc);
@@ -883,7 +885,7 @@ public class GuiGuidePage
             }
             else
             {
-                src = new ResourceLocation(Mod.modId, icon.get("img").getAsString());
+                src = new ResourceLocation(this.modId, icon.get("img").getAsString());
             }
 
             int width = icon.get("width").getAsInt();
