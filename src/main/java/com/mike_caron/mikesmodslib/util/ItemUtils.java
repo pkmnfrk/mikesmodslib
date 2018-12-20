@@ -6,6 +6,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.NonNullList;
+import net.minecraft.world.World;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.oredict.OreDictionary;
 
@@ -138,8 +139,13 @@ public class ItemUtils
 
         if(!player.inventory.addItemStackToInventory(newStack))
         {
-            EntityItem item = new EntityItem(player.getEntityWorld(), player.posX, player.posY, player.posZ, newStack);
-            player.getEntityWorld().spawnEntity(item);
+            dropItem(player.getEntityWorld(), newStack, player.posX, player.posY, player.posZ);
         }
+    }
+
+    public static void dropItem(@Nonnull World world, @Nonnull ItemStack itemStack, double x, double y, double z)
+    {
+        EntityItem item = new EntityItem(world, x, y, z, itemStack);
+        world.spawnEntity(item);
     }
 }

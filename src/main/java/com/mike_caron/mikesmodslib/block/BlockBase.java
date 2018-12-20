@@ -2,6 +2,8 @@ package com.mike_caron.mikesmodslib.block;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
+import net.minecraft.block.properties.IProperty;
+import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.entity.player.EntityPlayer;
@@ -14,8 +16,14 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.client.model.ModelLoader;
+import net.minecraftforge.common.property.ExtendedBlockState;
+import net.minecraftforge.common.property.IUnlistedProperty;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
+
+import javax.annotation.Nonnull;
+import java.util.ArrayList;
+import java.util.List;
 
 public class BlockBase extends Block
 {
@@ -24,6 +32,11 @@ public class BlockBase extends Block
         super(material);
         setRegistryName(name);
         setTranslationKey(getRegistryName().toString());
+    }
+
+    protected IBlockState addStateProperties(IBlockState blockState)
+    {
+        return blockState;
     }
 
     @SuppressWarnings("ConstantConditions")
@@ -56,5 +69,34 @@ public class BlockBase extends Block
 
     protected void getExtraDrops(NonNullList<ItemStack> drops, IBlockAccess world, BlockPos pos, IBlockState state)
     {
+    }
+
+    @Override
+    @Nonnull
+    protected BlockStateContainer createBlockState()
+    {
+        List<IProperty<?>> props = new ArrayList<>();
+        addAdditionalPropeties(props);
+
+        List<IUnlistedProperty<?>> unlistedProps = new ArrayList<>();
+        addAdditionalUnlistedProperties(unlistedProps);
+
+        if(unlistedProps.isEmpty())
+        {
+            return new BlockStateContainer(this, props.toArray(new IProperty<?>[0]));
+        }
+        else
+        {
+            return new ExtendedBlockState(this, props.toArray(new IProperty<?>[0]), unlistedProps.toArray(new IUnlistedProperty[0]));
+        }
+    }
+
+    protected void addAdditionalPropeties(List<IProperty<?>> properties)
+    {
+
+    }
+    protected void addAdditionalUnlistedProperties(List<IUnlistedProperty<?>> properties)
+    {
+
     }
 }

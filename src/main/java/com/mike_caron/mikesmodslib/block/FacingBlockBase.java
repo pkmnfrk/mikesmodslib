@@ -3,7 +3,6 @@ package com.mike_caron.mikesmodslib.block;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.properties.PropertyDirection;
-import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.item.ItemStack;
@@ -12,7 +11,6 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
 import javax.annotation.Nonnull;
-import java.util.ArrayList;
 import java.util.List;
 
 public class FacingBlockBase extends BlockBase
@@ -26,9 +24,10 @@ public class FacingBlockBase extends BlockBase
         setDefaultState(addStateProperties(this.blockState.getBaseState()));
     }
 
+    @Override
     protected IBlockState addStateProperties(IBlockState blockState)
     {
-        return blockState.withProperty(FACING, EnumFacing.NORTH);
+        return super.addStateProperties(blockState).withProperty(FACING, EnumFacing.NORTH);
     }
 
     @Override
@@ -38,16 +37,10 @@ public class FacingBlockBase extends BlockBase
     }
 
     @Override
-    protected BlockStateContainer createBlockState()
-    {
-        List<IProperty<?>> props = new ArrayList<>();
-        addAdditionalPropeties(props);
-
-        return new BlockStateContainer(this, props.toArray(new IProperty<?>[props.size()]));
-    }
-
     protected void addAdditionalPropeties(List<IProperty<?>> properties)
     {
+        super.addAdditionalPropeties(properties);
+
         properties.add(FACING);
     }
 
