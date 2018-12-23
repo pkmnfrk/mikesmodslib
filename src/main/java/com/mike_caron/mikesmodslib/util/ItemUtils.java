@@ -8,6 +8,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.NonNullList;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.common.registry.GameRegistry;
+import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.oredict.OreDictionary;
 
 import javax.annotation.Nonnull;
@@ -147,5 +148,26 @@ public class ItemUtils
     {
         EntityItem item = new EntityItem(world, x, y, z, itemStack);
         world.spawnEntity(item);
+    }
+
+    @Nonnull
+    public static ItemStack insertItemIfPossible(@Nonnull ItemStack itemStack, @Nonnull IItemHandler itemHandler)
+    {
+
+        for(int i = 0; i < itemHandler.getSlots(); i++)
+        {
+            if(!itemHandler.isItemValid(i,itemStack))
+                continue;
+
+            ItemStack ret = itemHandler.insertItem(i, itemStack, true);
+
+            if(ret != itemStack)
+            {
+                ret = itemHandler.insertItem(i, itemStack, false);
+                return ret;
+            }
+        }
+
+        return itemStack;
     }
 }

@@ -3,9 +3,7 @@ package com.mike_caron.mikesmodslib.block;
 import net.minecraft.block.Block;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemBlock;
-import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.event.RegistryEvent;
-import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import net.minecraftforge.oredict.OreDictionary;
@@ -25,17 +23,7 @@ public class ModBlocksBase
 
     public static void registerBlocks(Class<? extends ModBlocksBase> clazz)
     {
-
         visitAllBlocks(clazz, (block, field) -> {
-            if(block.getClass().isAnnotationPresent(RegisterTileEntity.class))
-            {
-                RegisterTileEntity ann = block.getClass().getAnnotation(RegisterTileEntity.class);
-
-                String id = !ann.id().equals("") ? ann.id() : block.getRegistryName().getPath();
-
-                GameRegistry.registerTileEntity(ann.value(), new ResourceLocation(block.getRegistryName().getNamespace(), id));
-            }
-
             if(block.getClass().isAnnotationPresent(RegisterOreDictionary.class))
             {
                 RegisterOreDictionary ann = block.getClass().getAnnotation(RegisterOreDictionary.class);
@@ -89,10 +77,9 @@ public class ModBlocksBase
 
     @Retention(RetentionPolicy.RUNTIME)
     @Target(ElementType.TYPE)
-    public @interface RegisterTileEntity
+    public @interface Register
     {
-         Class<? extends net.minecraft.tileentity.TileEntity> value();
-         String id() default "";
+         String value() default "";
     }
 
     @Retention(RetentionPolicy.RUNTIME)
