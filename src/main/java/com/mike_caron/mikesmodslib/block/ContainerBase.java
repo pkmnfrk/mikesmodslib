@@ -159,7 +159,7 @@ public abstract class ContainerBase
     }
 
     @Override
-    public NBTTagCompound serializeNBT()
+    public final NBTTagCompound serializeNBT()
     {
         NBTTagCompound tag = new NBTTagCompound();
 
