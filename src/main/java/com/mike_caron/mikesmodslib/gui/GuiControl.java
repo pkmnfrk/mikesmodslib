@@ -5,6 +5,7 @@ import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.player.EntityPlayer;
 
 import javax.annotation.Nullable;
+import java.awt.Color;
 import java.util.*;
 
 public abstract class GuiControl
@@ -15,6 +16,7 @@ public abstract class GuiControl
     protected int y;
     protected int zIndex;
     protected boolean enabled = true, visible = true;
+    protected Color foreColor = GuiUtil.FONT_COLOUR;
 
     protected final Vector<EventListener> listeners = new Vector<>();
 
@@ -192,5 +194,15 @@ public abstract class GuiControl
     {
         this.tooltipText = new ArrayList<>();
         this.tooltipText.addAll(text);
+    }
+
+    public Color getForeColor()
+    {
+        return foreColor != null ? foreColor : parent.getForeColor();
+    }
+
+    public void setForeColor(Color color)
+    {
+        this.foreColor = color;
     }
 }

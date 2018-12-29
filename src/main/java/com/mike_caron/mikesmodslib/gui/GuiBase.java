@@ -13,6 +13,7 @@ import org.lwjgl.input.Keyboard;
 import org.lwjgl.input.Mouse;
 
 import javax.annotation.Nullable;
+import java.awt.Color;
 import java.io.IOException;
 import java.net.URI;
 import java.util.ArrayList;
@@ -31,6 +32,8 @@ public class GuiBase
 
     protected final List<GuiControl> controls = new ArrayList<>();
     private GuiLabel titleLabel;
+
+    private Color foreColor = GuiUtil.FONT_COLOUR;
 
     private GuiControl mouseOverControl = null;
     private boolean leftDown = false, rightDown = false, middleDown = false;
@@ -465,5 +468,17 @@ public class GuiBase
             Throwable throwable = var4.getCause();
             Mod.logger.error("Couldn't open link: {}", throwable == null ? "<UNKNOWN>" : throwable.getMessage());
         }
+    }
+
+    @Override
+    public Color getForeColor()
+    {
+        return foreColor;
+    }
+
+    @Override
+    public void setForeColor(Color color)
+    {
+        this.foreColor = color;
     }
 }

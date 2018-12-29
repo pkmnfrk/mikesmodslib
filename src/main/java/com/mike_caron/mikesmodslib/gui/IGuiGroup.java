@@ -3,6 +3,7 @@ package com.mike_caron.mikesmodslib.gui;
 import net.minecraft.client.gui.FontRenderer;
 
 import javax.annotation.Nullable;
+import java.awt.Color;
 
 public interface IGuiGroup
 {
@@ -25,4 +26,7 @@ public interface IGuiGroup
     void onMouseUp(int mouseX, int mouseY, int button);
     void onMouseMove(int mouseX, int mouseY);
     void onMouseWheel(int mouseX, int mouseY, int deltaWheel);
+
+    Color getForeColor();
+    void setForeColor(Color color);
 }

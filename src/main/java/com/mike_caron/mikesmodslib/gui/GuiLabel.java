@@ -14,7 +14,7 @@ public class GuiLabel
 
     public GuiLabel(int x, int y, String key)
     {
-        this(x,y, GuiUtil.FONT_COLOUR, key, Alignment.LEFT, VerticalAlignment.BOTTOM);
+        this(x,y, null, key, Alignment.LEFT, VerticalAlignment.BOTTOM);
     }
 
     public GuiLabel(int x, int y, Color color, String key)
@@ -84,8 +84,8 @@ public class GuiLabel
             dy = -(sh / 2);
         }
 
-
-        this.parent.getFontRenderer().drawString(l, dx, dy, this.color.getRGB());
+        Color col = this.color != null ? this.color : parent.getForeColor();
+        this.parent.getFontRenderer().drawString(l, dx, dy, col.getRGB());
     }
 
     public String getLabel()

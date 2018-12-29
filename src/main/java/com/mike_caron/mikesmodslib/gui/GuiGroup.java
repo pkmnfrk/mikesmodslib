@@ -13,6 +13,8 @@ public class GuiGroup
 {
     protected final List<GuiControl> controls = new ArrayList<>();
 
+    //private Color foreColor = null;
+
     public GuiGroup()
     {
         super(0, 0, 0, 0);

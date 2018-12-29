@@ -5,18 +5,13 @@ import java.awt.*;
 public class GuiProgressBar
     extends GuiSized
 {
-    private Color foreColor = new Color(0, 196, 0, 255);
     private Color backColor = new Color(128, 0, 0, 255);
     private float progress = 0f;
 
     public GuiProgressBar(int x, int y, int width, int height)
     {
         super(x, y, width, height);
-    }
-
-    public void setForeColor(Color foreColor)
-    {
-        this.foreColor = foreColor;
+        foreColor = new Color(0, 196, 0, 255);
     }
 
     public void setBackColor(Color backColor)
@@ -40,7 +35,7 @@ public class GuiProgressBar
         GuiUtil.drawStretchedTexturePart(0, 0, width, height, 36, 16, 1, 16, 256, 256);
         //GuiUtil.drawDebugFlatRectangle(x, y, width, height);
 
-        GuiUtil.setGLColor(foreColor);
+        GuiUtil.setGLColor(getForeColor());
 
         //GL11.glScissor(parent.translateToScreenX(x), y, (int)(width * progress), height);
 

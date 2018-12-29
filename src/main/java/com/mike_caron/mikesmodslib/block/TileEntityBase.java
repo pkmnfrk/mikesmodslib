@@ -49,7 +49,7 @@ public class TileEntityBase extends TileEntity
     @Nonnull
     public NBTTagCompound getUpdateTag()
     {
-        return this.writeToNBT(new NBTTagCompound());
+        return this.writeToNBT(super.getUpdateTag());
     }
 
     @Override

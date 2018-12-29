@@ -6,12 +6,13 @@ import net.minecraft.util.math.BlockPos;
 
 import javax.annotation.Nonnull;
 
-public abstract class TEContainerBase extends ContainerBase
+public abstract class TEContainerBase<T extends TileEntityBase>
+    extends ContainerBase
 {
     @Nonnull
-    protected final TileEntityBase te;
+    protected final T te;
 
-    public TEContainerBase(IInventory player, TileEntityBase te)
+    public TEContainerBase(IInventory player, T te)
     {
         super(player);
 

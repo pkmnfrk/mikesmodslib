@@ -10,6 +10,7 @@ import org.lwjgl.input.Keyboard;
 import org.lwjgl.input.Mouse;
 
 import javax.annotation.Nullable;
+import java.awt.Color;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -23,6 +24,7 @@ public abstract class GuiContainerBase
 {
     protected final List<GuiControl> controls = new ArrayList<>();
     private GuiLabel titleLabel;
+    private Color foreColor;
 
     private GuiControl mouseOverControl = null;
     private boolean leftDown = false, rightDown = false, middleDown = false;
@@ -445,4 +447,15 @@ public abstract class GuiContainerBase
         return true;
     }
 
+    @Override
+    public Color getForeColor()
+    {
+        return foreColor;
+    }
+
+    @Override
+    public void setForeColor(Color color)
+    {
+        this.foreColor = color;
+    }
 }
