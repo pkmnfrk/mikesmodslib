@@ -6,6 +6,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.NonNullList;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.items.IItemHandler;
@@ -91,6 +92,40 @@ public class ItemUtils
 
         //return null;
         throw new RuntimeException("I don't understand the item " + tag);
+    }
+
+    @Nonnull
+    public static Item getItemFromTag(String tag)
+    {
+        try
+        {
+            Item item = Item.getByNameOrId(tag);
+            Preconditions.checkNotNull(item);
+            return item;
+
+        }
+        catch (NullPointerException ex)
+        {
+            //handled below
+        }
+
+        //return null;
+        throw new RuntimeException("I don't understand the item " + tag);
+    }
+
+    @Nonnull
+    public static String getTagFromItem(@Nonnull Item item)
+    {
+        ResourceLocation res = Item.REGISTRY.getNameForObject(item);
+
+        Preconditions.checkNotNull(res);
+
+        if(res.getNamespace().equals("minecraft"))
+        {
+            return res.getPath();
+        }
+
+        return res.toString();
     }
 
     public static String getTagFromStack(ItemStack stack)

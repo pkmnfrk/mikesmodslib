@@ -90,17 +90,24 @@ public class GuiButton
         }
 
         int sx = 0;
-        switch(state)
+        if(enabled)
         {
-            case NORMAL:
-                sx = 16;
-                break;
-            case HOVERED:
-                sx = 32;
-                break;
-            case PRESSED:
-                sx = 48;
-                break;
+            switch (state)
+            {
+                case NORMAL:
+                    sx = 16;
+                    break;
+                case HOVERED:
+                    sx = 32;
+                    break;
+                case PRESSED:
+                    sx = 48;
+                    break;
+            }
+        }
+        else
+        {
+            sx = 64;
         }
 
         GuiUtil.bindTexture(GuiUtil.MISC_RESOURCES);
@@ -138,6 +145,12 @@ public class GuiButton
         {
             GlStateManager.pushMatrix();
             GlStateManager.translate(imageX, this.height / 2 - image.getHeight() / 2, 0);
+            Color col = Color.WHITE;
+            if(!enabled)
+            {
+                col = col.darker();
+            }
+            GuiUtil.setGLColor(col);
             image.draw();
             GlStateManager.popMatrix();
         }

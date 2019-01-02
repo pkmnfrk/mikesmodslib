@@ -9,6 +9,7 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 import net.minecraftforge.oredict.OreDictionary;
 import net.minecraftforge.registries.IForgeRegistry;
 
+import javax.annotation.Nullable;
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
@@ -17,6 +18,7 @@ import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
 import java.util.Arrays;
 import java.util.function.BiConsumer;
+import java.util.function.Function;
 
 public class ModBlocksBase
 {
@@ -37,12 +39,24 @@ public class ModBlocksBase
 
     public static void registerItems(RegistryEvent.Register<Item> event, Class<? extends ModBlocksBase> clazz)
     {
+        registerItems(event, clazz, null);
+    }
+
+    public static void registerItems(RegistryEvent.Register<Item> event, Class<? extends ModBlocksBase> clazz, @Nullable Function<Block, ItemBlock> custom)
+    {
         IForgeRegistry<Item> registry = event.getRegistry();
 
         visitAllBlocks(clazz, (block, field) -> {
+            if(block == null)
+                return;
+            if(block.getRegistryName() == null)
+                throw new NullPointerException("Registry name is missing for " + block.toString());
+
+            ItemBlock b = null;
+            if(custom != null) b = custom.apply(block);
+            if(b == null) b = new ItemBlock(block);
             registry.register(
-                new ItemBlock(block)
-                    .setRegistryName(block.getRegistryName())
+                b.setRegistryName(block.getRegistryName())
             );
         });
     }
