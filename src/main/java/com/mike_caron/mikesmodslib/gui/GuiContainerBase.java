@@ -24,7 +24,7 @@ public abstract class GuiContainerBase
 {
     protected final List<GuiControl> controls = new ArrayList<>();
     private GuiLabel titleLabel;
-    private Color foreColor;
+    private Color foreColor = GuiUtil.FONT_COLOUR;
 
     private GuiControl mouseOverControl = null;
     private boolean leftDown = false, rightDown = false, middleDown = false;

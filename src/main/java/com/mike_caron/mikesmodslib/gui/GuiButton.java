@@ -10,10 +10,10 @@ import java.util.EventListener;
 public class GuiButton
     extends GuiSized
 {
-    private int id;
+    protected int id;
 
     private String label;
-    private State state;
+    protected State state;
     private GuiImage image;
 
     public GuiButton(int id, int x, int y, int width, int height, String label)
@@ -217,7 +217,7 @@ public class GuiButton
         }
     }
 
-    enum State
+    protected enum State
     {
         NORMAL,
         HOVERED,
