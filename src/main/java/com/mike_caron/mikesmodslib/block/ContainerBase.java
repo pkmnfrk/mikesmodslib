@@ -228,9 +228,10 @@ public abstract class ContainerBase
     {
         if(nbtTagCompound != null)
         {
+            changed = true;
             onReadNBT(nbtTagCompound);
 
-            if(onGuiUpdate != null)
+            if(onGuiUpdate != null && changed)
             {
                 onGuiUpdate.run();
             }
