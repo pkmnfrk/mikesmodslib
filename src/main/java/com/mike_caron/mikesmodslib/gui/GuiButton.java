@@ -161,6 +161,15 @@ public class GuiButton
         this.parent.getFontRenderer().drawString(label, x, y, fore.getRGB());
     }
 
+    public void setImage(GuiImage img)
+    {
+        this.image = img;
+        if(this.image != null)
+        {
+            this.image.setParent(this.parent);
+        }
+    }
+
     @Override
     public void onMouseEnter()
     {
