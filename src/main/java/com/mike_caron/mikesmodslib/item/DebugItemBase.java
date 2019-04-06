@@ -6,6 +6,11 @@ import net.minecraft.item.ItemStack;
 public class DebugItemBase
     extends ItemBase
 {
+    public DebugItemBase(String name)
+    {
+        super(name);
+    }
+
     @Override
     public EnumRarity getRarity(ItemStack stack)
     {

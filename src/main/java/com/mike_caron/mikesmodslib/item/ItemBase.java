@@ -8,6 +8,19 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class ItemBase extends Item
 {
+    public ItemBase(String name)
+    {
+        super();
+
+        this.setRegistryName(name);
+        this.setTranslationKey(name);
+    }
+
+    public ItemBase()
+    {
+        this("missingid");
+    }
+
     @SuppressWarnings("ConstantConditions")
     @SideOnly(Side.CLIENT)
     public void initModel() {
