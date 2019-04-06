@@ -96,4 +96,9 @@ public class TileEntityBase extends TileEntity
         IBlockState state = this.world.getBlockState(getPos());
         this.world.markAndNotifyBlock(getPos(), null, state, state, 3);
     }
+
+    protected void markAndNotify(IBlockState oldState, IBlockState newState)
+    {
+        this.world.markAndNotifyBlock(getPos(), null, oldState, newState, 3);
+    }
 }
