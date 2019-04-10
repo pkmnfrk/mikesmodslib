@@ -10,6 +10,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.InventoryHelper;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.NonNullList;
 import net.minecraft.util.math.BlockPos;
@@ -22,6 +23,7 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -98,5 +100,17 @@ public class BlockBase extends Block
     protected void addAdditionalUnlistedProperties(List<IUnlistedProperty<?>> properties)
     {
 
+    }
+
+    @Nullable
+    @SuppressWarnings({"unchecked"})
+    protected <T extends TileEntityBase> T getTileEntity(@Nonnull IBlockAccess worldIn, @Nonnull BlockPos pos, @Nonnull Class<T> clss)
+    {
+        TileEntity ret = worldIn.getTileEntity(pos);
+
+        if(clss.isInstance(ret))
+            return (T)ret;
+
+        return null;
     }
 }
