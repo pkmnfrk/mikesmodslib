@@ -15,7 +15,7 @@ public class MultiblockUtil
 {
     private MultiblockUtil(){}
 
-    public static BlockPos findClosest(@Nonnull World world, @Nonnull BlockPos start, Class<? extends BlockBase> medium, Function<IBlockState, Boolean> search)
+    public static BlockPos walkMultiblock(@Nonnull World world, @Nonnull BlockPos start, Class<? extends BlockBase> medium, Function<IBlockState, Boolean> search)
     {
         HashSet<Long> explored = new HashSet<>();
         PriorityQueue<DistPos> toExplore = new PriorityQueue<>(DistPos::compare);
@@ -25,11 +25,6 @@ public class MultiblockUtil
         while(!toExplore.isEmpty())
         {
             DistPos spot = toExplore.remove();
-
-            if(explored.contains(spot.toLong()))
-                continue;
-
-            explored.add(spot.toLong());
 
             IBlockState block = world.getBlockState(spot);
 
@@ -41,7 +36,12 @@ public class MultiblockUtil
 
             for(EnumFacing dir : EnumFacing.VALUES)
             {
-                toExplore.add(spot.offset(dir));
+                DistPos newPos = spot.offset(dir);
+                if(!explored.contains(newPos.toLong()))
+                {
+                    explored.add(newPos.toLong());
+                    toExplore.add(spot.offset(dir));
+                }
             }
         }
 
