@@ -31,11 +31,18 @@ public abstract class TileEntityProxy <T extends TileEntity>
     @Override
     public void deserializeNBT(NBTTagCompound compound)
     {
-        int x = compound.getInteger("x");
-        int y = compound.getInteger("y");
-        int z = compound.getInteger("z");
+        if(compound.hasKey("x") && compound.hasKey("y") && compound.hasKey("z"))
+        {
+            int x = compound.getInteger("x");
+            int y = compound.getInteger("y");
+            int z = compound.getInteger("z");
 
-        pos = new BlockPos(x, y, z);
+            pos = new BlockPos(x, y, z);
+        }
+        else
+        {
+            pos = null;
+        }
     }
 
     @Nullable
@@ -49,15 +56,22 @@ public abstract class TileEntityProxy <T extends TileEntity>
         {
             TileEntity ret = world.getTileEntity(pos);
 
-            try
+            if(ret != null)
             {
-                return (T)ret;
+                try
+                {
+
+                    return (T) ret;
+                }
+                catch (ClassCastException ex)
+                {
+                    //hmm
+                    //this block intentionally left blank
+                }
             }
-            catch(ClassCastException ex)
-            {
-                //hmm
-                pos = null;
-            }
+
+            pos = null;
+            this.markDirty();
         }
 
         lastCheck += 1;
@@ -68,7 +82,10 @@ public abstract class TileEntityProxy <T extends TileEntity>
             BlockPos p = findTileEntity(world);
 
             if(p != null)
+            {
                 pos = p;
+                this.markDirty();
+            }
 
             return getTileEntity(world);
         }
@@ -83,4 +100,8 @@ public abstract class TileEntityProxy <T extends TileEntity>
 
     @Nullable
     protected abstract BlockPos findTileEntity(@Nonnull World world);
+
+    protected void markDirty() {
+
+    }
 }
