@@ -9,13 +9,19 @@ import net.minecraft.world.World;
 import javax.annotation.Nonnull;
 import java.util.HashSet;
 import java.util.PriorityQueue;
-import java.util.function.Function;
+import java.util.function.BiFunction;
 
 public class MultiblockUtil
 {
     private MultiblockUtil(){}
 
-    public static BlockPos walkMultiblock(@Nonnull World world, @Nonnull BlockPos start, Class<? extends BlockBase> medium, Function<IBlockState, Boolean> search)
+
+    public static BlockPos walkMultiblock(@Nonnull World world, @Nonnull BlockPos start, Class<? extends BlockBase> medium, BiFunction<IBlockState, BlockPos, Boolean> shouldStop)
+    {
+        return walkMultiblock(world, start, (blockState, pos) -> medium.isInstance(blockState.getBlock()), shouldStop);
+    }
+
+    public static BlockPos walkMultiblock(@Nonnull World world, @Nonnull BlockPos start, BiFunction<IBlockState, BlockPos, Boolean> shouldEnter, BiFunction<IBlockState, BlockPos, Boolean> shouldStop)
     {
         HashSet<Long> explored = new HashSet<>();
         PriorityQueue<DistPos> toExplore = new PriorityQueue<>(DistPos::compare);
@@ -28,10 +34,10 @@ public class MultiblockUtil
 
             IBlockState block = world.getBlockState(spot);
 
-            if(!medium.isInstance(block.getBlock()))
+            if(!shouldEnter.apply(block, spot))
                 continue;
 
-            if(search.apply(block))
+            if(shouldStop.apply(block, spot))
                 return spot;
 
             for(EnumFacing dir : EnumFacing.VALUES)

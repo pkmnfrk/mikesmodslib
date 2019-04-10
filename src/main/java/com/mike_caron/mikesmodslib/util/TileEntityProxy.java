@@ -70,8 +70,13 @@ public abstract class TileEntityProxy <T extends TileEntity>
                 }
             }
 
-            pos = null;
+            pos = findTileEntity();
             this.markDirty();
+
+            if(pos != null)
+            {
+                return getTileEntity(world);
+            }
         }
 
         lastCheck += 1;
@@ -79,7 +84,7 @@ public abstract class TileEntityProxy <T extends TileEntity>
         {
             lastCheck = 0;
 
-            BlockPos p = findTileEntity(world);
+            BlockPos p = findTileEntity();
 
             if(p != null)
             {
@@ -99,9 +104,28 @@ public abstract class TileEntityProxy <T extends TileEntity>
     }
 
     @Nullable
-    protected abstract BlockPos findTileEntity(@Nonnull World world);
+    protected abstract BlockPos findTileEntity();
 
     protected void markDirty() {
 
+    }
+
+    public void invalidate()
+    {
+        BlockPos newPos = findTileEntity();
+        if(!areEqual(pos, newPos))
+        {
+            pos = newPos;
+            this.markDirty();
+        }
+    }
+
+    private static boolean areEqual(BlockPos a, BlockPos b)
+    {
+        if(a == null && b == null) return false;
+        if(a != null)
+            return a.equals(b);
+
+        return false;
     }
 }
