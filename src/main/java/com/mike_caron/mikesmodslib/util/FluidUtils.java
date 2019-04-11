@@ -14,6 +14,9 @@ public class FluidUtils
 {
     public static boolean fillPlayerHandWithFluid(World world, BlockPos pos, EntityPlayer player, IFluidHandler fluidHandler)
     {
+        if(fluidHandler == null)
+            return false;
+
         ItemStack inHand = player.inventory.getCurrentItem().copy();
         ItemStack theRest = null;
 
@@ -78,6 +81,9 @@ public class FluidUtils
 
     public static boolean drainPlayerHandOfFluid(World world, BlockPos pos, EntityPlayer player, IFluidHandler fluidHandler)
     {
+        if(fluidHandler == null)
+            return false;
+
         ItemStack inHand = player.inventory.getCurrentItem();
 
         if(inHand.hasCapability(CapabilityFluidHandler.FLUID_HANDLER_ITEM_CAPABILITY, null))
