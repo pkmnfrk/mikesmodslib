@@ -18,13 +18,21 @@ public class FluidBase extends Fluid
 
     public FluidBase(String fluidName, ResourceLocation still, ResourceLocation flowing)
     {
+        this(fluidName, still, flowing, true);
+    }
+
+    public FluidBase(String fluidName, ResourceLocation still, ResourceLocation flowing, boolean autoRegister)
+    {
         super(fluidName, still, flowing);
 
         this
             .setGaseous(false);
 
-        FluidRegistry.registerFluid(this);
-        FluidRegistry.addBucketForFluid(this);
+        if(autoRegister)
+        {
+            FluidRegistry.registerFluid(this);
+            FluidRegistry.addBucketForFluid(this);
+        }
     }
 
     /*

@@ -70,4 +70,17 @@ public final class StringUtil
         return gson.toJson(element);
     }
 
+    public static int parseColorString(String col)
+    {
+        if(col.startsWith("#"))
+        {
+            col = col.substring(1);
+        }
+        while(col.length() < 6)
+        {
+            col = "F" + col;
+        }
+        return Integer.parseInt(col, 16);
+    }
+
 }
