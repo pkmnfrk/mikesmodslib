@@ -1,5 +1,9 @@
 package com.mike_caron.mikesmodslib.block;
 
+import com.mike_caron.mikesmodslib.integrations.ITOPInfoProvider;
+import mcjty.theoneprobe.api.IProbeHitData;
+import mcjty.theoneprobe.api.IProbeInfo;
+import mcjty.theoneprobe.api.ProbeMode;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.IProperty;
@@ -27,7 +31,9 @@ import javax.annotation.Nullable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class BlockBase extends Block
+public class BlockBase
+    extends Block
+    implements ITOPInfoProvider
 {
     public BlockBase(Material material, String name)
     {
@@ -112,5 +118,24 @@ public class BlockBase extends Block
             return (T)ret;
 
         return null;
+    }
+
+    @Override
+    public void addProbeInfo(ProbeMode mode, IProbeInfo probeInfo, EntityPlayer player, World world, IBlockState blockState, IProbeHitData data)
+    {
+        TileEntity te = world.getTileEntity(data.getPos());
+
+        if(!(te instanceof ITOPInfoProvider))
+            return;
+
+        ((ITOPInfoProvider)te).addProbeInfo(mode, probeInfo, player, world, blockState, data);
+    }
+
+    @Override
+    public boolean hasInfo(EntityPlayer player)
+    {
+        if(hasTileEntity())
+            return true;
+        return false;
     }
 }
