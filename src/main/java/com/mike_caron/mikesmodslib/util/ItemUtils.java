@@ -15,24 +15,38 @@ import net.minecraftforge.oredict.OreDictionary;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class ItemUtils
 {
     @GameRegistry.ItemStackHolder("minecraft:clock")
     public static ItemStack CLOCK;
 
+    public static final Pattern leadingCount = Pattern.compile("^(\\d+)x");
+
     @Nonnull
     public static ItemStack getStackFromTag(String tag)
     {
         try
         {
+            int count = 1;
+
+            Matcher res = leadingCount.matcher(tag);
+            while(res.find())
+            {
+                count = Integer.parseInt(res.group(1));
+                tag = tag.substring(res.end());
+            }
+
+
             String[] parts = tag.split(":");
             if (parts.length == 1)
             {
                 //assume minecraft:item:0
                 Item item = Item.getByNameOrId(parts[0]);
                 Preconditions.checkNotNull(item);
-                return new ItemStack(item, 1);
+                return new ItemStack(item, count);
             }
             else if (parts.length == 2)
             {
@@ -42,7 +56,7 @@ public class ItemUtils
 
                 if (item != null)
                 {
-                    return new ItemStack(item, 1);
+                    return new ItemStack(item, count);
                 }
 
                 // try minecraft:item:meta
@@ -61,7 +75,7 @@ public class ItemUtils
 
                 Preconditions.checkNotNull(item);
 
-                return new ItemStack(item, 1, meta);
+                return new ItemStack(item, count, meta);
             }
             else if (parts.length == 3)
             {
@@ -78,7 +92,7 @@ public class ItemUtils
                 Item item = Item.getByNameOrId(parts[0] + ":" + parts[1]);
 
                 Preconditions.checkNotNull(item, "Can't locate the item " + tag);
-                return new ItemStack(item, 1, meta);
+                return new ItemStack(item, count, meta);
 
             }
         }
