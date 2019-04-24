@@ -29,7 +29,7 @@ public class Mod
 {
     public static final String modId = "mikesmodslib";
     public static final String name = "MikesModsLib";
-    public static final String version = "1.0.1";
+    public static final String version = "1.0.2";
 
     public static final Logger logger = LogManager.getLogger(modId);
 
